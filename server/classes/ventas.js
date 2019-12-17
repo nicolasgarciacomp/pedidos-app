@@ -1,87 +1,34 @@
 const fs = require('fs');
 
-class Ticket {
-	constructor(numero, escritorio) {
-		this.numero = numero;
-		this.escritorio = escritorio;
-	}
-}
+class Venta {
 
-class TicketControl {
-	constructor() {
-		this.ultimo = 0;
-		this.hoy = new Date().getDate();
-		this.tickets = [];
-		this.ultimos4 = [];
-
-		let data = require('../data/data.json');
-
-		if(data.hoy === this.hoy) {
-			this.ultimo = data.ultimo;
-			this.tickets = data.tickets;
-			this.ultimos4 = data.ultimos4;
-		} else {
-			this.reiniciarConteo();
-		}
-	}
-
-	siguiente() {
-		this.ultimo += 1;
-		let ticket = new Ticket(this.ultimo, null);
-		this.tickets.push(ticket);
-		this.grabarArchivo();
-
-		return `Ticket ${ this.ultimo }`;
-	}
-
-	getUltimoTicket() {
-		return `Ticket ${ this.ultimo }`;
-	}
-
-	getUltimos4() {
-		return this.ultimos4;
-	}
-
-	atenderTicket(escritorio) {
-		if(this.tickets.length === 0) {
-			return 'No hay tickets';
-		}
-
-		let numeroTicket = this.tickets[0].numero;
-		this.tickets.shift();
-
-		let atenderTicket = new Ticket(numeroTicket, escritorio);
-		this.ultimos4.unshift(atenderTicket);
-
-		if(this.ultimos4.length > 4) {
-			this.ultimos4.splice(-1, 1); // Borra el ultimo elemento
-		}
-
-		this.grabarArchivo();
-		return atenderTicket;
-	}
-
-	reiniciarConteo() {
-		this.ultimo = 0;
-		this.tickets = [];
-		this.ultimos4 = [];
-		console.log('Se ha inicializado el sistema');
-		this.grabarArchivo();
+	constructor(id, producto, precio, cliente) {
+		this.id = id;
+		this.producto = producto;
+		this.precio = precio;
+		this.cliente = cliente;
 	}
 
 	grabarArchivo() {
 		let jsonData = {
-			ultimo: this.ultimo,
-			hoy: this.hoy,
-			tickets: this.tickets,
-			ultimos4: this.ultimos4
+			id: this.id,
+			producto: this.producto,
+			precio: this.precio,
+			cliente: this.cliente,
+			fecha: new Date().getDate()
 		}
 
 		let jsonDataString = JSON.stringify(jsonData);
-		fs.writeFileSync('./server/data/data.json', jsonDataString);
+		fs.writeFileSync('./server/data/ventas.json', jsonDataString);
+	}
+
+	getUltimoTicket() {
+		let data = require('../data/ventas.json');
+
+		return data;
 	}
 }
 
 module.exports = {
-	TicketControl
+	Venta
 }
