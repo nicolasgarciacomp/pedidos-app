@@ -1,11 +1,9 @@
 const fs = require('fs');
 
 class Producto {
-	constructor(id, tipo, nombre, precio) {
-		this.id = id;
-		this.tipo = tipo;
-		this.nombre = nombre;
-		this.precio = precio;
+
+	constructor() {
+
 	}
 
 	grabarArchivo() {

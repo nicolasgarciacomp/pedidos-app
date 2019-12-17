@@ -1,7 +1,7 @@
 const { io } = require('../server');
-const { TicketControl } = require('../classes/ticket-control.js');
+const { Producto } = require('../classes/productos.js');
 
-const ticketControl = new TicketControl();
+const producto = new Producto();
 
 io.on('connection', (client) => {
 
@@ -16,20 +16,9 @@ io.on('connection', (client) => {
         ultimos4: ticketControl.getUltimos4()
     });
     
-    client.on('atenderTicket', (data, callback) => {
-    	if(!data.escritorio) {
-    		return callback({
-    			err: true,
-    			mensaje: 'El escritorio es necesario'
-    		});
-    	}
+    client.on('getProductos', (callback) => {
+    	let getProductos = producto.getProductos();
 
-    	let atenderTicket = ticketControl.atenderTicket(data.escritorio);
-
-    	callback(atenderTicket);
-
-        client.broadcast.emit('ultimos4', {
-            ultimos4: ticketControl.getUltimos4()
-        });
+    	callback(getProductos);
     });
 });
