@@ -1,0 +1,67 @@
+.chat-list {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 600px !important;
+}
+
+.chatonline {
+	overflow-y: scroll;
+	height: 600px !important;
+}
+
+textarea {
+    width: 100%;
+}
+
+/*
+#txtMensaje, #cl-text-mensaje {
+	width: 870px;
+}
+*/
+
+#nuevaSala {
+	margin-top: 10px;
+	width: 200px;
+	float: left;
+}
+
+#p-nuevaSala {
+	float: left;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+#nuevoNick {
+	margin-top: 10px;
+	width: 200px;
+	float: left;
+}
+
+#enviaNNick {
+	width: 130px;
+	height: 40px;
+	margin-top: 9px;
+	margin-left: 5px;
+	margin-right: 20px;
+	text-align: center;
+	float: left;
+}
+
+#salirSala {
+	width: 130px;
+	height: 40px;
+	margin-top: 9px;
+	margin-left: 15px;
+	text-align: center;
+}
+
+#idioma {
+	width: 150px;
+}
+
+#cl-select {
+	top: 92px;
+	left: 20px;
+}
