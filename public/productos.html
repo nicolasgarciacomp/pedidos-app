@@ -25,12 +25,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jua">
 </head>
-<body>
+<body style="background-image: url(&quot;assets/img/fondo_07.jpg&quot;);">
     <!-- Navegacion -->
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(57,57,59);">
             <div class="container">
-                <a class="navbar-brand" href="index.html" style="color: #fbfbff; font-family: Jua, sans-serif;">Siracusa Pizzeria</a>
+                <a class="navbar-brand" href="index.html" style="color: #fbfbff; font-family: Jua, sans-serif;"><img src="assets/img/icono.jpg" width="30" height="30" class="d-inline-block align-top" alt=""> Siracusa Pizzeria</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span
                         class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
@@ -39,16 +39,26 @@
         </nav>
     </div>
     <!-- Info -->
-    <h1>Productos</h1>
-    <div class="row">
-        <div class="col-6">
-            <button class="btn btn-primary" id="btnAllProductos">Ver Productos</a>
-        </div>
-        <div class="col-6">
-            <div id="divAllProductos">
-            </div>
-        </div>
+    <br>
+    <div class="text-left" id="btn-insert">
+        <a href="insert.html" class="btn btn-primary"><i class="fa fa-plus"></i> Insertar registro</a>
     </div>
+    <br><br>
+    <table class="table table-striped" id="tbl-productos" style="background-color: white;">
+        <thead class="thead-light">
+            <tr>
+                <th class="w50">ID</td>
+                <th>Tipo</td>
+                <th>Producto</td>
+                <th>Precio</td>
+                <th class="w50">Actualizar</td>
+                <th class="w50">Eliminar</td>
+            </tr>
+        </thead>
+        <tbody id="tabAllProductos">
+        </tbody>
+    </table>
+    <br><br>
     <!-- Footer -->
     <div class="footer-dark">
         <footer>
