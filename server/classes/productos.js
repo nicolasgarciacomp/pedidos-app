@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+let listadoProductos = [];
+
 class Producto {
 
 	constructor() {
@@ -7,15 +9,34 @@ class Producto {
 	}
 
 	grabarArchivo() {
-		let jsonData = {
-			id: this.id,
-			tipo: this.tipo,
-			nombre: this.nombre,
-			precio: this.precio
+		let data = JSON.stringify(listadoProductos);
+
+		fs.writeFile('../data/productos.json', data, (err) => {
+			if(err) throw new Error('No se pudo grabar', err);
+		});
+	}
+
+	agregarProducto(tipo, nombre, precio) {
+		try {
+			listadoProductos = require('../data/productos.json');
+		} catch(error) {
+			listadoProductos = [];
 		}
 
-		let jsonDataString = JSON.stringify(jsonData);
-		fs.writeFileSync('./server/data/productos.json', jsonDataString);
+		let nuevoProducto = {
+			id: listadoProductos.length,
+			tipo: tipo,
+			nombre: nombre,
+			precio: precio
+		};
+
+		listadoProductos.push(nuevoProducto);
+
+		// Grabo archivo
+		let data = JSON.stringify(listadoProductos);
+		fs.writeFileSync('./server/data/productos.json', data);
+
+		return nuevoProducto;
 	}
 
 	getProductos() {
@@ -30,16 +51,6 @@ class Producto {
 		for(var i = 0; i <= data.length-1; i++) {
 			if(data['"'+i+'"'] === id) {
 				return data['"'+i+'"'].nombre;
-			}
-		}
-	}
-
-	getPrecio(nombre) {
-		let data = require('../data/productos.json');
-
-		for(var i = 0; i <= data.length-1; i++) {
-			if(data['"'+i+'"'].nombre === nombre) {
-				return data['"'+i+'"'].precio;
 			}
 		}
 	}

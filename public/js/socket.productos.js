@@ -2,6 +2,10 @@
 var socket = io();
 
 var tabProductos = $('#tabAllProductos');
+var buttonInsert = $('#btn-insert1');
+var nuevoTipo = $('#text-tipo');
+var nuevoNombre = $('#text-nombre');
+var nuevoPrecio = $('#text-precio');
 
 $(document).ready(function() {
 	socket.emit('getProductos', function(resp) {
@@ -17,5 +21,17 @@ $(document).ready(function() {
 			contenido += '</tr>';
 			tabProductos.append(contenido);
 		}
+	});
+
+	buttonInsert.on('click', function (e) {
+		e.preventDefault();
+		socket.emit('agregarProducto', {
+			tipo: nuevoTipo.val(),
+			nombre: nuevoNombre.val(),
+			precio: nuevoPrecio.val()
+		}, function(resp) {
+			console.log(resp);
+		});
+		swal("Hecho!", "Registro insertado con éxito!", "success");
 	});
 });

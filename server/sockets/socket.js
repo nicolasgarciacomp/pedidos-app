@@ -9,4 +9,9 @@ io.on('connection', (client) => {
     	let getProductos = producto.getProductos();
     	callback(getProductos);
     });
+
+    client.on('agregarProducto', (data, callback) => {
+    	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio);
+    	callback(nuevoProducto);
+    });
 });
