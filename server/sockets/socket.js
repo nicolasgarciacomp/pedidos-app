@@ -14,4 +14,14 @@ io.on('connection', (client) => {
     	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio);
     	callback(nuevoProducto);
     });
+
+    client.on('getProducto', (data, callback) => {
+    	let productoID = producto.getProducto(data.id);
+    	callback(productoID);
+    });
+
+    client.on('actualizar', (data, callback) => {
+    	let actualiza = producto.actualizar(data.id, data.tipo, data.nombre, data.precio);
+    	callback(actualiza);
+    });
 });

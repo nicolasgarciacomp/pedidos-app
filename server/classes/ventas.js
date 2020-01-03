@@ -1,28 +1,47 @@
 const fs = require('fs');
 
+let ventas = [];
+
 class Venta {
 
-	constructor(id, producto, precio, cliente) {
-		this.id = id;
-		this.producto = producto;
-		this.precio = precio;
-		this.cliente = cliente;
+	constructor() {
+		
 	}
 
 	grabarArchivo() {
-		let jsonData = {
-			id: this.id,
-			producto: this.producto,
-			precio: this.precio,
-			cliente: this.cliente,
-			fecha: new Date().getDate()
-		}
+		let data = JSON.stringify(ventas);
 
-		let jsonDataString = JSON.stringify(jsonData);
-		fs.writeFileSync('./server/data/ventas.json', jsonDataString);
+		fs.writeFile('../data/ventas.json', data, (err) => {
+			if(err) throw new Error('No se pudo grabar', err);
+		});
 	}
 
-	getUltimoTicket() {
+	agregarVenta(cliente, tipo, nombre, precio) {
+		try {
+			listadoProductos = require('../data/ventas.json');
+		} catch(error) {
+			ventas = [];
+		}
+
+		let nuevaVenta = {
+			id: ventas.length,
+			cliente: cliente,
+			tipo: tipo,
+			nombre: nombre,
+			precio: precio,
+			fecha: new Date().getDate()
+		};
+
+		ventas.push(nuevaVenta);
+
+		// Grabo archivo
+		let data = JSON.stringify(ventas);
+		fs.writeFileSync('./server/data/ventas.json', data);
+
+		return nuevaVenta;
+	}
+
+	getVentas() {
 		let data = require('../data/ventas.json');
 
 		return data;
