@@ -35,7 +35,7 @@ $(document).ready(function() {
 			contenido += '<td class="w50">'+respOrdenado[i].nombre+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].precio+'</td>';
 			contenido += '<td class="w50"><a href="modify.html?id='+respOrdenado[i].id+'" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>';
-			contenido += '<td class="w50"><a href="" data-id="'+respOrdenado[i].id+'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>';
+			contenido += '<td class="w50"><a href="delete.html?id='+respOrdenado[i].id+'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>';
 			contenido += '</tr>';
 			tabProductos.append(contenido);
 		}

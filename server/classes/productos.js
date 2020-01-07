@@ -24,7 +24,7 @@ class Producto {
 		}
 
 		let nuevoProducto = {
-			id: listadoProductos.length,
+			id: listadoProductos.length, // Acá tengo un problema cuando elimino!!
 			tipo: tipo,
 			nombre: nombre,
 			precio: precio
@@ -64,10 +64,53 @@ class Producto {
 		}
 	}
 
+	eliminar(id) {
+		try {
+			listadoProductos = require('../data/productos.json');
+		} catch(error) {
+			listadoProductos = [];
+		}
+
+		let nuevoListado = listadoProductos.filter(producto => {
+			return producto.id != id;
+		});
+
+		if(listadoProductos.length == nuevoListado.length) {
+			return false;
+		} else {
+			listadoProductos = nuevoListado;
+			
+			// Grabo archivo
+			let data = JSON.stringify(listadoProductos);
+			fs.writeFileSync('./server/data/productos.json', data);
+			return true;
+		}
+	}
+
 	getProductos() {
 		let data = require('../data/productos.json');
 
 		return data;
+	}
+
+	getPorTipo(tipo) {
+		try {
+			listadoProductos = require('../data/productos.json');
+		} catch(error) {
+			listadoProductos = [];
+		}
+
+		let nuevoListado = listadoProductos.filter(producto => {
+			return producto.tipo == tipo;
+		});
+
+		if(listadoProductos.length == nuevoListado.length) {
+			return false;
+		} else {
+			listadoProductos = nuevoListado;
+
+			return listadoProductos;
+		}
 	}
 
 	getProducto(id) {

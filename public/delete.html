@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="Aplicacion de pedidos de comida.">
+    <meta name="author" content="Nicolas Garcia">
+    <link rel="icon" href="assets/img/icono.jpg">
+    <title>Pizzeria | Siracusa la pizza a legna</title>
+
+    <!-- Styles-->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <link href="css/pages/login-register-lock.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jua">
+</head>
+<body style="background-image: url(&quot;assets/img/fondo_07.jpg&quot;);">
+    <!-- Navegacion -->
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(57,57,59);">
+            <div class="container">
+                <a class="navbar-brand" href="index.html" style="color: #fbfbff; font-family: Jua, sans-serif;"><img src="assets/img/icono.jpg" width="30" height="30" class="d-inline-block align-top" alt=""> Siracusa Pizzeria</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Info -->
+    <br>
+    <div class="input-group mb-3" id="div-cont-buttons">
+        <div class="input-group-prepend" id="div-buttons">
+            <span class="input-group-text" id="inputGroup-sizing-default">Tipo</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-tipo">
+        <div class="input-group-prepend" id="div-buttons">
+            <span class="input-group-text" id="inputGroup-sizing-default">Nombre</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-nombre">
+        <div class="input-group-prepend" id="div-buttons">
+            <span class="input-group-text" id="inputGroup-sizing-default">Precio</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-precio">
+    </div>
+    <br>
+    <div class="text-left" id="btn-delete1">
+        <a href="" class="btn btn-primary"><i class="fa fa-plus"></i> Eliminar</a>
+    </div>
+    <div class="text-left" id="btn-cancel">
+        <a href="productos.html" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <!-- Footer -->
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col item social">
+                        <a href="https://www.facebook.com/siracusapizzas/"><i class="icon ion-social-facebook"></i></a>
+                        <a href="#"><i class="icon ion-social-github"></i></a>
+                        <a href="https://www.instagram.com/siracusa_lapizzaalegna/?hl=es-la"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Pizzeria | Pizza a la legna</p>
+                <p class="copyright">Siracusa © 2019 Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/socket.delete.js"></script>
+</body>
+</html>

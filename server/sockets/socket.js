@@ -24,4 +24,14 @@ io.on('connection', (client) => {
     	let actualiza = producto.actualizar(data.id, data.tipo, data.nombre, data.precio);
     	callback(actualiza);
     });
+
+    client.on('eliminar', (data, callback) => {
+        let elimina = producto.eliminar(data.id);
+        callback(elimina);
+    });
+
+    client.on('getPorTipo', (data, callback) => {
+        let tipo = producto.getPorTipo(data.tipo);
+        callback(tipo);
+    });
 });
