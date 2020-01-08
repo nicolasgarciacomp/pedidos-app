@@ -1,7 +1,9 @@
 const { io } = require('../server');
 const { Producto } = require('../classes/productos.js');
+const { Venta } = require('../classes/ventas.js');
 
 const producto = new Producto();
+const venta = new Venta();
 
 io.on('connection', (client) => {
     
@@ -33,5 +35,10 @@ io.on('connection', (client) => {
     client.on('getPorTipo', (data, callback) => {
         let tipo = producto.getPorTipo(data.tipo);
         callback(tipo);
+    });
+
+    client.on('agregarVenta', (data, callback) => {
+        let nuevaVenta = venta.agregarVenta(data.cliente, data.tipo, data.nombre, data.precio, data.cantidad);
+        callback(nuevaVenta);
     });
 });

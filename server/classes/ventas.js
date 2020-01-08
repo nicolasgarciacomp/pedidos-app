@@ -16,9 +16,9 @@ class Venta {
 		});
 	}
 
-	agregarVenta(cliente, tipo, nombre, precio) {
+	agregarVenta(cliente, tipo, nombre, precio, cantidad) {
 		try {
-			listadoProductos = require('../data/ventas.json');
+			ventas = require('../data/ventas.json');
 		} catch(error) {
 			ventas = [];
 		}
@@ -29,9 +29,10 @@ class Venta {
 			tipo: tipo,
 			nombre: nombre,
 			precio: precio,
+			cantidad: cantidad,
 			fecha: new Date().getDate()
 		};
-
+		
 		ventas.push(nuevaVenta);
 
 		// Grabo archivo

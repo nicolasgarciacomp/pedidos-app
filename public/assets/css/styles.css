@@ -16,7 +16,7 @@
 	width: 50px;
 }
 
-#tbl-productos {
+#tbl-productos, #tbl-pedido {
 	width: 95%;
 	margin-left: 20px;
 	margin-top: 20px;
