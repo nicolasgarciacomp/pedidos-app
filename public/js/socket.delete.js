@@ -21,7 +21,7 @@ $(document).ready(function() {
 		nuevoPrecio.val(resp.precio);
 	});
 
-	buttonDelete.on('click', function (e) {
+	buttonDelete.on('click', function(e) {
 		e.preventDefault();
 		socket.emit('eliminar', {
 			id: id

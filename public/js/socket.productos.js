@@ -41,7 +41,7 @@ $(document).ready(function() {
 		}
 	});
 
-	buttonInsert.on('click', function (e) {
+	buttonInsert.on('click', function(e) {
 		e.preventDefault();
 		socket.emit('agregarProducto', {
 			tipo: nuevoTipo.val(),

@@ -16,21 +16,28 @@ class Venta {
 		});
 	}
 
-	agregarVenta(cliente, tipo, nombre, precio, cantidad) {
+	agregarVenta(cliente, direccion, tipo, nombre, precio, cantidad) {
 		try {
 			ventas = require('../data/ventas.json');
 		} catch(error) {
 			ventas = [];
 		}
 
+		// Formateo Date para tener fecha y hora
+		var hoy = new Date();
+		var fecha = hoy.getDate() + '-' + (hoy.getMonth()+1) + '-' + hoy.getFullYear();
+		var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+		var fechaYHora = fecha + ' ' + hora;
+
 		let nuevaVenta = {
 			id: ventas.length,
 			cliente: cliente,
+			direccion: direccion,
 			tipo: tipo,
 			nombre: nombre,
 			precio: precio,
 			cantidad: cantidad,
-			fecha: new Date().getDate()
+			fecha: fechaYHora
 		};
 		
 		ventas.push(nuevaVenta);

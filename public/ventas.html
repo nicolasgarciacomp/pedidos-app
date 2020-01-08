@@ -36,50 +36,8 @@
     </div>
     <!-- Info -->
     <br>
-    <!-- Contacto Cliente -->
-    <div class="input-group mb-2" id="div-cont-buttons">
-        <div class="input-group-prepend" id="div-buttons">
-            <span class="input-group-text" id="inputGroup-sizing-default">Nombre</span>
-        </div>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-nombre">
-        <div class="input-group-prepend" id="div-buttons">
-            <span class="input-group-text" id="inputGroup-sizing-default">Dirección</span>
-        </div>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-direccion">
-    </div>
-    <br>
-    <!-- Info Productos de Venta -->
-    <div class="input-group mb-3" id="div-cont-buttons">
-        <div class="input-group-prepend" id="div-buttons">
-            <span class="input-group-text" id="inputGroup-sizing-default">Tipo</span>
-        </div>
-        <select class="custom-select" id="sel-tipo" style="background-color: white">
-            <option selected>Seleccionar...</option>
-        </select>
-        <div class="input-group-prepend" id="div-buttons">
-            <span class="input-group-text" id="inputGroup-sizing-default">Producto</span>
-        </div>
-        <select class="custom-select" id="sel-producto" style="background-color: white">
-            <option selected>Seleccionar...</option>
-        </select>
-        <div class="input-group-prepend" id="div-buttons">
-            <span class="input-group-text" id="inputGroup-sizing-default">Cantidad</span>
-        </div>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-cantidad">
-    </div>
-    <br>
-    <div class="text-left" id="btn-agrega1">
-        <a href="" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar</a>
-    </div>
-    <div class="text-left" id="btn-confirma1">
-        <a href="" class="btn btn-primary"><i class="fa fa-check"></i> Confirmar Venta</a>
-    </div>
-    <div class="text-left" id="btn-cancel">
-        <a href="index.html" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
-    </div>
-    <br>
     <!-- Info Actual del pedido -->
-    <table class="table table-striped text-center" align="center" id="tbl-pedido" style="background-color: white;">
+    <table class="table table-striped text-center" align="center" id="tbl-ventas" style="background-color: white;">
         <thead class="thead-light">
             <tr>
                 <th class="w50">ID</td>
@@ -89,17 +47,12 @@
                 <th class="w50">Producto</td>
                 <th class="w50">Precio</td>
                 <th class="w50">Cantidad</td>
+                <th class="w50">Fecha</td>
             </tr>
         </thead>
         <tbody id="tab-detalle">
         </tbody>
     </table>
-    <div class="input-group mb-1" id="div-cont-buttons" style="margin-left: 10px">
-        <div class="input-group-prepend" id="div-buttons">
-            <span class="input-group-text" id="inputGroup-sizing-default">Total</span>
-        </div>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="text-total">
-    </div>
     <br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Footer -->
     <div class="footer-dark">
@@ -116,9 +69,8 @@
             </div>
         </footer>
     </div>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
-    <script src="js/socket.pedido.js"></script>
+    <script src="js/socket.ventas.js"></script>
 </body>
 </html>

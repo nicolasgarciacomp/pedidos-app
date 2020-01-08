@@ -21,7 +21,7 @@ $(document).ready(function() {
 		nuevoPrecio.val(resp.precio);
 	});
 
-	buttonModify.on('click', function (e) {
+	buttonModify.on('click', function(e) {
 		e.preventDefault();
 		socket.emit('actualizar', {
 			id: id,

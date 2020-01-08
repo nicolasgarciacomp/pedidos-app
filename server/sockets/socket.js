@@ -12,6 +12,11 @@ io.on('connection', (client) => {
     	callback(getProductos);
     });
 
+    client.on('getVentas', (callback) => {
+        let getVentas = venta.getVentas();
+        callback(getVentas);
+    });
+
     client.on('agregarProducto', (data, callback) => {
     	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio);
     	callback(nuevoProducto);
@@ -38,7 +43,7 @@ io.on('connection', (client) => {
     });
 
     client.on('agregarVenta', (data, callback) => {
-        let nuevaVenta = venta.agregarVenta(data.cliente, data.tipo, data.nombre, data.precio, data.cantidad);
+        let nuevaVenta = venta.agregarVenta(data.cliente, data.direccion, data.tipo, data.nombre, data.precio, data.cantidad);
         callback(nuevaVenta);
     });
 });
