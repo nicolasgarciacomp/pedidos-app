@@ -54,6 +54,21 @@ class Venta {
 
 		return data;
 	}
+
+	getPorMes(mes) {
+		try {
+			ventas = require('../data/ventas.json');
+		} catch(error) {
+			ventas = [];
+		}
+
+		let nuevoListado = ventas.filter(venta => {
+			var v = venta.fecha.split('-');
+			return v[1] == mes;
+		});
+
+		return nuevoListado;
+	}
 }
 
 module.exports = {

@@ -104,13 +104,7 @@ class Producto {
 			return producto.tipo == tipo;
 		});
 
-		if(listadoProductos.length == nuevoListado.length) {
-			return false;
-		} else {
-			listadoProductos = nuevoListado;
-
-			return listadoProductos;
-		}
+		return nuevoListado;
 	}
 
 	getProducto(id) {

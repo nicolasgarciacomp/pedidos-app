@@ -17,6 +17,11 @@ io.on('connection', (client) => {
         callback(getVentas);
     });
 
+    client.on('getPorMes', (data, callback) => {
+        let getVentasPorMes = venta.getPorMes(data.mes);
+        callback(getVentasPorMes);
+    });
+
     client.on('agregarProducto', (data, callback) => {
     	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio);
     	callback(nuevoProducto);
