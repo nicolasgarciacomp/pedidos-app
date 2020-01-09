@@ -13,14 +13,6 @@ var total = $('#text-total');
 var totalDeVenta = 0;
 
 $(document).ready(function() {
-	
-	socket.emit('getProductos', function(resp) {
-		for(var i = 0; i < resp.length; i++) {
-			var contenido = "";
-			contenido += '<option value="'+resp[i].tipo+'">'+resp[i].tipo+'</option>';
-			selectTipo.append(contenido);
-		}
-	});
 
 	selectTipo.on('change', function(e) {
 		e.preventDefault();
