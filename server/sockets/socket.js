@@ -17,6 +17,11 @@ io.on('connection', (client) => {
         callback(getVentas);
     });
 
+    client.on('getEnCola', (callback) => {
+        let enCola = venta.getEnCola();
+        callback(enCola);
+    });
+
     client.on('getPorMes', (data, callback) => {
         let getVentasPorMes = venta.getPorMes(data.mes);
         callback(getVentasPorMes);

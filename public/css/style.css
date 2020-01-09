@@ -1006,6 +1006,7 @@ File: scss
 
 .card {
   margin-top: -65px;
+  width: 1000px;
   margin-bottom: 300px; }
   .card .card-subtitle {
     font-weight: 300;

@@ -71,7 +71,7 @@ $(document).ready(function() {
     			swal("Venta confirmada!", {
       				icon: "success",
     			});
-    			window.location.href = "http://localhost:3000/index.html";
+    			window.location.href = "http://app-nico-pizza.herokuapp.com/index.html";
   			} else {
     			swal("Venta cancelada!");
   			}

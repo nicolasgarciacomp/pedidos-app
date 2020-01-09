@@ -37,7 +37,8 @@ class Venta {
 			nombre: nombre,
 			precio: precio,
 			cantidad: cantidad,
-			fecha: fechaYHora
+			fecha: fechaYHora,
+			estado: 'Pendiente'
 		};
 		
 		ventas.push(nuevaVenta);
@@ -65,6 +66,20 @@ class Venta {
 		let nuevoListado = ventas.filter(venta => {
 			var v = venta.fecha.split('-');
 			return v[1] == mes;
+		});
+
+		return nuevoListado;
+	}
+
+	getEnCola() {
+		try {
+			ventas = require('../data/ventas.json');
+		} catch(error) {
+			ventas = [];
+		}
+
+		let nuevoListado = ventas.filter(venta => {
+			return venta.estado == 'Pendiente';
 		});
 
 		return nuevoListado;
