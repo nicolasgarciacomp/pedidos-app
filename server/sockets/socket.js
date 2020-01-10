@@ -42,6 +42,11 @@ io.on('connection', (client) => {
     	callback(actualiza);
     });
 
+    client.on('pasarListo', (data, callback) => {
+        let listo = venta.pasarListo(data.id);
+        callback(listo);
+    });
+
     client.on('eliminar', (data, callback) => {
         let elimina = producto.eliminar(data.id);
         callback(elimina);

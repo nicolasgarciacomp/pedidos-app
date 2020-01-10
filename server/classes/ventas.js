@@ -50,6 +50,29 @@ class Venta {
 		return nuevaVenta;
 	}
 
+	pasarListo(id) {
+		try {
+			ventas = require('../data/ventas.json');
+		} catch(error) {
+			ventas = [];
+		}
+
+		let index = ventas.findIndex(venta => {
+			return venta.id == id;
+		});
+
+		if(index >= 0) {
+			ventas[index].estado = 'Listo';
+
+			// Grabo archivo
+			let data = JSON.stringify(ventas);
+			fs.writeFileSync('./server/data/ventas.json', data);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	getVentas() {
 		let data = require('../data/ventas.json');
 

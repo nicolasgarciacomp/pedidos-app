@@ -25,7 +25,7 @@ $(document).ready(function() {
 		respOrdenado = ordenarPorClave(resp, "id");
 		for(var i = 0; i < resp.length; i++) {
 			var contenido = "";
-			contenido += '<tr>';
+			contenido += '<tr id="'+respOrdenado[i].id+'">';
 			contenido += '<td>'+respOrdenado[i].id+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].cliente+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].direccion+'</td>';
@@ -34,9 +34,19 @@ $(document).ready(function() {
 			contenido += '<td class="w50">'+'$'+respOrdenado[i].precio+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].cantidad+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].fecha+'</td>';
-			contenido += '<td class="w50"><a href="" class="btn btn-primary"><i class="fa fa-check"></i></a></td>';
+			contenido += '<td class="w50"><button data-id="'+respOrdenado[i].id+'" id="'+respOrdenado[i].id+'" class="btn btn-primary" onClick="a(id);"><i class="fa fa-check"></i></button></td>';
 			contenido += '</tr>';
 			detalle.append(contenido);
 		}
 	});
+
 });
+
+function a(id) {
+	socket.emit('pasarListo', {
+		id: id
+	}, function(resp) {
+		console.log(resp);
+	});
+	$('#' + id).remove();
+}
