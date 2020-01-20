@@ -2,7 +2,7 @@
     background-image: url(../img/menuicon.jpg);
 }
 
-#btnAllProductos, #btnAllProductos {
+#btnAllProductos, #tabAllClientes {
 	margin-left: 10px;
 	margin-right: 10px;
 }
@@ -16,7 +16,7 @@
 	width: 50px;
 }
 
-#tbl-productos, #tbl-pedido, #tbl-ventas {
+#tbl-productos, #tbl-pedido, #tbl-ventas, #tbl-clientes {
 	width: 95%;
 	margin-left: 20px;
 	margin-top: 20px;
