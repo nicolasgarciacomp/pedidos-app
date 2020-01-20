@@ -1,9 +1,11 @@
 const { io } = require('../server');
 const { Producto } = require('../classes/productos.js');
 const { Venta } = require('../classes/ventas.js');
+const { Cliente } = require('../classes/clientes.js');
 
 const producto = new Producto();
 const venta = new Venta();
+const cliente = new Cliente();
 
 io.on('connection', (client) => {
     
@@ -15,6 +17,11 @@ io.on('connection', (client) => {
     client.on('getVentas', (callback) => {
         let getVentas = venta.getVentas();
         callback(getVentas);
+    });
+
+    client.on('getClientes', (callback) => {
+        let getClientes = cliente.getClientes();
+        callback(getClientes);
     });
 
     client.on('getEnCola', (callback) => {
@@ -32,14 +39,29 @@ io.on('connection', (client) => {
     	callback(nuevoProducto);
     });
 
+    client.on('agregarCliente', (data, callback) => {
+        let nuevoCliente = cliente.agregarCliente(data.nombre, data.direccion, data.telefono);
+        callback(nuevoCliente);
+    });
+
     client.on('getProducto', (data, callback) => {
     	let productoID = producto.getProducto(data.id);
     	callback(productoID);
     });
 
+    client.on('getCliente', (data, callback) => {
+        let clienteID = cliente.getCliente(data.id);
+        callback(clienteID);
+    });
+
     client.on('actualizar', (data, callback) => {
     	let actualiza = producto.actualizar(data.id, data.tipo, data.nombre, data.precio);
     	callback(actualiza);
+    });
+
+    client.on('actualizarCliente', (data, callback) => {
+        let actualizaC = cliente.actualizar(data.id, data.nombre, data.direccion, data.telefono);
+        callback(actualizaC);
     });
 
     client.on('pasarListo', (data, callback) => {
@@ -50,6 +72,11 @@ io.on('connection', (client) => {
     client.on('eliminar', (data, callback) => {
         let elimina = producto.eliminar(data.id);
         callback(elimina);
+    });
+
+    client.on('eliminarCliente', (data, callback) => {
+        let eliminaC = cliente.eliminar(data.id);
+        callback(eliminaC);
     });
 
     client.on('getPorTipo', (data, callback) => {

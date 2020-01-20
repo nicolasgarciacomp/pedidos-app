@@ -77,4 +77,23 @@ $(document).ready(function() {
   			}
 		});
 	});
+
+	$('#text-nombre').keyup(function() {
+		socket.emit('getClientes', function(resp) {
+			for(var i = 0; i < resp.length; i++) {
+    			var buscando = nombreCliente.val();
+    			var item = '';
+        		item = resp[i].nombre;
+    			for(var x = 0; x < item.length; x++) {
+        			if(buscando.length == 0 || item.indexOf(buscando) > -1) {
+            			console.log(resp[i].nombre);
+            			$("#suggesstion-box").show();
+						$("#suggesstion-box").html(resp[i].nombre);
+          			} else {
+            			console.log('No');
+            		}
+        		}
+			}
+		});
+	});
 });

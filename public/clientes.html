@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jua">
 </head>
-<body>
+<body style="background-image: url(&quot;assets/img/fondo_07.jpg&quot;);">
     <!-- Navegacion -->
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: rgb(57,57,59);">
@@ -34,53 +34,27 @@
             </div>
         </nav>
     </div>
-    <!-- Menu -->
-    <div class="register-photo" style="background-image: url(&quot;assets/img/fondo_07.jpg&quot;); height: 400px;">
-        <div class="form-container">
-            <div class="card-deck">
-                <div class="card">
-                    <a href="pedido.html">
-                        <img src="assets/img/P_01.jpg" alt="Pizza1" class="card-img-top" id="img_b1">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Nuevo Pedido</h5>
-                    </div>
-                </div>
-                <div class="card">
-                    <a href="cola-pedidos.html">
-                        <img src="assets/img/P_03.jpg" alt="Pizza2" class="card-img-top" id="img_b3">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Cola Pedidos</h5>
-                    </div>
-                </div>
-                <div class="card">
-                    <a href="ventas.html">
-                        <img src="assets/img/P_02.jpg" alt="Pizza3" class="card-img-top" id="img_b2">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Resumen Ventas</h5>
-                    </div>
-                </div>
-                <div class="card">
-                    <a href="clientes.html">
-                        <img src="assets/img/P_05.jpg" alt="Pizza4" class="card-img-top" id="img_b5" style="height: 109px;">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">ABM Clientes</h5>
-                    </div>
-                </div>
-                <div class="card">
-                    <a href="productos.html">
-                        <img src="assets/img/P_04.jpg" alt="Pizza5" class="card-img-top" id="img_b4" style="height: 109px;">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">ABM Productos</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Info -->
+    <br>
+    <div class="text-left" id="btn-insert">
+        <a href="insert-clientes.html" class="btn btn-primary"><i class="fa fa-plus"></i> Insertar registro</a>
     </div>
+    <br>
+    <table class="table table-striped text-center" align="center" id="tbl-clientes" style="background-color: white;">
+        <thead class="thead-light">
+            <tr>
+                <th class="w50">ID</td>
+                <th class="w50">Nombre</td>
+                <th class="w50">Dirección</td>
+                <th class="w50">Teléfono</td>
+                <th class="w50">Actualizar</td>
+                <th class="w50">Eliminar</td>
+            </tr>
+        </thead>
+        <tbody id="tabAllClientes">
+        </tbody>
+    </table>
+    <br><br>
     <!-- Footer -->
     <div class="footer-dark">
         <footer>
@@ -96,5 +70,8 @@
             </div>
         </footer>
     </div>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/socket.clientes.js"></script>
 </body>
 </html>
