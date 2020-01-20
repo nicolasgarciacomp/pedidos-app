@@ -47,5 +47,7 @@ img:hover {
 }
 
 #suggesstion-box {
-	
+	display: none;
+	margin-left: 10px;
+	width: 350px;
 }

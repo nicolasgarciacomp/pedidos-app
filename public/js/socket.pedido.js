@@ -3,7 +3,7 @@ var socket = io();
 
 var buttonAgrega = $('#btn-agrega1');
 var buttonConfirma = $('#btn-confirma1');
-var nombreCliente = $('#text-nombre');
+var nombreCliente = $('#text-nombre-p');
 var direccion = $('#text-direccion');
 var selectTipo = $('#sel-tipo');
 var selectProducto = $('#sel-producto');
@@ -78,22 +78,33 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#text-nombre').keyup(function() {
+	$('#text-nombre-p').keyup(function() {
+		$("#suggesstion-box").empty();
 		socket.emit('getClientes', function(resp) {
 			for(var i = 0; i < resp.length; i++) {
     			var buscando = nombreCliente.val();
     			var item = '';
         		item = resp[i].nombre;
-    			for(var x = 0; x < item.length; x++) {
-        			if(buscando.length == 0 || item.indexOf(buscando) > -1) {
-            			console.log(resp[i].nombre);
-            			$("#suggesstion-box").show();
-						$("#suggesstion-box").html(resp[i].nombre);
-          			} else {
-            			console.log('No');
-            		}
+
+    			if(item.indexOf(buscando) > -1) {
+    				console.log(resp[i].nombre);
+    				console.log(resp[i].id);
+        			$("#suggesstion-box").show();
+					$("#suggesstion-box").append('<a href="#" data-id="'+resp[i].id+'" id="'+resp[i].id+'" onClick="elegirNombre(id);">'+resp[i].nombre+'</a><br>');
+      			} else {
+
         		}
 			}
 		});
 	});
 });
+
+function elegirNombre(id) {
+	socket.emit('getCliente', {
+		id: id
+	}, function(resp) {
+		nombreCliente.val(resp.nombre);
+		direccion.val(resp.direccion);
+	});
+	$("#suggesstion-box").hide();
+}
