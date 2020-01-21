@@ -1,6 +1,7 @@
 // Comando para establecer la conexion
 var socket = io();
 
+// Referencias de jQuery
 var detalle = $('#tab-detalle');
 var selectMes = $('#sel-mes');
 var cantBurger = 0;
@@ -12,6 +13,7 @@ var totalPizza = 0;
 
 $(document).ready(function() {
 	
+	// Listeners
 	socket.emit('getVentas', function(resp) {
 		for(var i = 0; i < resp.length; i++) {
 			var contenido = "";

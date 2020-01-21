@@ -4,6 +4,7 @@ var socket = io();
 var params = new URLSearchParams(window.location.search);
 var id = params.get('id');
 
+// Referencias de jQuery
 var tabProductos = $('#tabAllProductos');
 var buttonModify = $('#btn-modify1');
 var nuevoTipo = $('#text-tipo');
@@ -12,6 +13,7 @@ var nuevoPrecio = $('#text-precio');
 
 $(document).ready(function() {
 
+	// Listeners
 	socket.emit('getProducto', {
 		id: id
 	}, function(resp) {

@@ -1,6 +1,7 @@
 // Comando para establecer la conexion
 var socket = io();
 
+// Referencias de jQuery
 var buttonAgrega = $('#btn-agrega1');
 var buttonConfirma = $('#btn-confirma1');
 var nombreCliente = $('#text-nombre-p');
@@ -14,6 +15,7 @@ var totalDeVenta = 0;
 
 $(document).ready(function() {
 
+	// Listeners
 	selectTipo.on('change', function(e) {
 		e.preventDefault();
 		socket.emit('getPorTipo', {

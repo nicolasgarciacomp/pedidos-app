@@ -1,6 +1,7 @@
 // Comando para establecer la conexion
 var socket = io();
 
+// Referencias de jQuery
 var tabClientes = $('#tabAllClientes');
 var buttonInsert = $('#btn-insert1');
 var nuevoNombre = $('#text-nombre');
@@ -25,6 +26,7 @@ function ordenarPorClave(array, key) {
 
 $(document).ready(function() {
 	
+	// Listeners
 	socket.emit('getClientes', function(resp) {
 		respOrdenado = ordenarPorClave(resp, "nombre");
 		for(var i = 0; i < resp.length; i++) {

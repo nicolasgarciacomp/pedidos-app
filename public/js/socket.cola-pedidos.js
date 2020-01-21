@@ -1,6 +1,7 @@
 // Comando para establecer la conexion
 var socket = io();
 
+// Referencias de jQuery
 var detalle = $('#tab-detalle');
 
 /**
@@ -21,6 +22,7 @@ function ordenarPorClave(array, key) {
 
 $(document).ready(function() {
 	
+	// Listeners
 	socket.emit('getEnCola', function(resp) {
 		respOrdenado = ordenarPorClave(resp, "id");
 		for(var i = 0; i < resp.length; i++) {

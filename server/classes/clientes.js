@@ -1,6 +1,18 @@
+/**
+ * @fileoverview	./server/classes/clientes.js
+ *
+ * @version         1.0
+ *
+ * @author          Nicolás Garcia <nicolasgarciacomp@gmail.com>
+ *
+ * History
+ * v1.0 – Se creó el archivo
+**/
+
+// Requires
 const fs = require('fs');
 
-let listadoClientes = [];
+let listadoClientes = []; // Array para almacenar los clientes
 
 class Cliente {
 
@@ -8,6 +20,15 @@ class Cliente {
 
 	}
 
+	/**
+	 * @name	grabarArchivo
+	 *
+	 * @description	Escribe en el archivo de datos
+	 *
+	 * @param	{}
+	 *
+	 * @return  {}
+	**/
 	grabarArchivo() {
 		let data = JSON.stringify(listadoClientes);
 
@@ -16,7 +37,17 @@ class Cliente {
 		});
 	}
 
+	/**
+	 * @name	agregarCliente
+	 *
+	 * @description	Añade un cliente al array listadoClientes
+	 *
+	 * @param	{number, string, string}
+	 *
+	 * @return  {object}
+	**/
 	agregarCliente(nombre, direccion, telefono) {
+		// Cargo archivo
 		try {
 			listadoClientes = require('../data/clientes.json');
 		} catch(error) {
@@ -39,7 +70,17 @@ class Cliente {
 		return nuevoCliente;
 	}
 
+	/**
+	 * @name	actualizar
+	 *
+	 * @description	Actualiza datos de un cliente
+	 *
+	 * @param	{number, string, string, string}
+	 *
+	 * @return  {boolean}
+	**/
 	actualizar(id, nombre, direccion, telefono) {
+		// Cargo archivo
 		try {
 			listadoClientes = require('../data/clientes.json');
 		} catch(error) {
@@ -64,7 +105,17 @@ class Cliente {
 		}
 	}
 
+	/**
+	 * @name	eliminar
+	 *
+	 * @description	Elimina un cliente del listado de clientes
+	 *
+	 * @param	{number}
+	 *
+	 * @return  {boolean}
+	**/
 	eliminar(id) {
+		// Cargo archivo
 		try {
 			listadoClientes = require('../data/clientes.json');
 		} catch(error) {
@@ -87,13 +138,33 @@ class Cliente {
 		}
 	}
 
+	/**
+	 * @name	getClientes
+	 *
+	 * @description	Devuelve todos los clientes del listado
+	 *
+	 * @param	{}
+	 *
+	 * @return  {object}
+	**/
 	getClientes() {
+		// Cargo archivo
 		let data = require('../data/clientes.json');
 
 		return data;
 	}
 
+	/**
+	 * @name	getCliente
+	 *
+	 * @description	Devuelve un cliente por id
+	 *
+	 * @param	{number}
+	 *
+	 * @return  {object}
+	**/
 	getCliente(id) {
+		// Cargo archivo
 		let data = require('../data/clientes.json');
 
 		for(var i = 0; i <= data.length-1; i++) {
@@ -104,6 +175,7 @@ class Cliente {
 	}
 }
 
+// Exporto la clase
 module.exports = {
 	Cliente
 }

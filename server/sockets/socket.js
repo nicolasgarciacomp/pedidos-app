@@ -1,3 +1,15 @@
+/**
+ * @fileoverview    ./server/sockets/socket.js
+ *
+ * @version         1.0
+ *
+ * @author          Nicolás Garcia <nicolasgarciacomp@gmail.com>
+ *
+ * History
+ * v1.0 – Se creó el archivo
+**/
+
+// Requires
 const { io } = require('../server');
 const { Producto } = require('../classes/productos.js');
 const { Venta } = require('../classes/ventas.js');
@@ -7,6 +19,7 @@ const producto = new Producto();
 const venta = new Venta();
 const cliente = new Cliente();
 
+// Connect
 io.on('connection', (client) => {
     
     client.on('getProductos', (callback) => {

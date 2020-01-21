@@ -4,6 +4,7 @@ var socket = io();
 var params = new URLSearchParams(window.location.search);
 var id = params.get('id');
 
+// Referencias de jQuery
 var tabClientes = $('#tabAllClientes');
 var buttonDelete = $('#btn-delete1');
 var nuevoNombre = $('#text-nombre');
@@ -12,6 +13,7 @@ var nuevoTelefono = $('#text-telefono');
 
 $(document).ready(function() {
 
+	// Listeners
 	socket.emit('getCliente', {
 		id: id
 	}, function(resp) {

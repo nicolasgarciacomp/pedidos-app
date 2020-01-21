@@ -1,6 +1,7 @@
 // Comando para establecer la conexion
 var socket = io();
 
+// Referencias de jQuery
 var tabProductos = $('#tabAllProductos');
 var buttonInsert = $('#btn-insert1');
 var nuevoTipo = $('#text-tipo');
@@ -25,6 +26,7 @@ function ordenarPorClave(array, key) {
 
 $(document).ready(function() {
 	
+	// Listeners
 	socket.emit('getProductos', function(resp) {
 		respOrdenado = ordenarPorClave(resp, "tipo");
 		for(var i = 0; i < resp.length; i++) {
