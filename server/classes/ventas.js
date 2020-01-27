@@ -135,7 +135,7 @@ class Venta {
 	 *
 	 * @description	Devuelve las ventas filtradas por un mes determinado
 	 *
-	 * @param	{string}
+	 * @param	{number}
 	 *
 	 * @return  {object}
 	**/
@@ -150,6 +150,31 @@ class Venta {
 		let nuevoListado = ventas.filter(venta => {
 			var v = venta.fecha.split('-');
 			return v[1] == mes;
+		});
+
+		return nuevoListado;
+	}
+
+	/**
+	 * @name	getPorMesDia
+	 *
+	 * @description	Devuelve las ventas filtradas por mes y dia
+	 *
+	 * @param	{number, number}
+	 *
+	 * @return  {object}
+	**/
+	getPorMesDia(mes, dia) {
+		// Cargo archivo
+		try {
+			ventas = require('../data/ventas.json');
+		} catch(error) {
+			ventas = [];
+		}
+
+		let nuevoListado = ventas.filter(venta => {
+			var v = venta.fecha.split('-');
+			return v[1] == mes && v[0] == dia;
 		});
 
 		return nuevoListado;

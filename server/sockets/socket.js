@@ -47,6 +47,11 @@ io.on('connection', (client) => {
         callback(getVentasPorMes);
     });
 
+    client.on('getPorMesDia', (data, callback) => {
+        let getVentasPorMesDia = venta.getPorMesDia(data.mes, data.dia);
+        callback(getVentasPorMesDia);
+    });
+
     client.on('agregarProducto', (data, callback) => {
     	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio);
     	callback(nuevoProducto);
