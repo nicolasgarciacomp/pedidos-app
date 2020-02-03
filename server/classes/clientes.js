@@ -177,12 +177,12 @@ class Cliente {
 	getClientes() {
 		// Cargo archivo
 		try {
-			data = require('../data/clientes.json');
+			listadoClientes = require('../data/clientes.json');
 		} catch(error) {
-			data = [];
+			listadoClientes = [];
 		}
 
-		let nuevoListado = data.filter(cliente => {
+		let nuevoListado = listadoClientes.filter(cliente => {
 			return cliente.estado == 'Alta';
 		});
 

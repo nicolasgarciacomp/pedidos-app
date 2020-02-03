@@ -1,1 +1,1 @@
-[{"id":0,"tipo":"Lomo","nombre":"Común","precio":"100","estado":"Alta"}]
+[{"id":0,"tipo":"Lomo","nombre":"Común","precio":"100","estado":"Alta"},{"id":1,"tipo":"Lomo","nombre":"Completo","precio":"200","estado":"Alta"},{"id":2,"tipo":"Burger","nombre":"Completa","precio":"200","estado":"Alta"},{"id":3,"tipo":"Burger","nombre":"Común","precio":"150","estado":"Baja"},{"id":4,"tipo":"Pizza","nombre":"Especial","precio":"200","estado":"Alta"}]
