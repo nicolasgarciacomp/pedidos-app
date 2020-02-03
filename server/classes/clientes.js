@@ -58,7 +58,8 @@ class Cliente {
 			id: listadoClientes.length, // Acá tengo un problema cuando elimino!!
 			nombre: nombre,
 			direccion: direccion,
-			telefono: telefono
+			telefono: telefono,
+			estado: 'Alta'
 		};
 
 		listadoClientes.push(nuevoCliente);
@@ -105,15 +106,7 @@ class Cliente {
 		}
 	}
 
-	/**
-	 * @name	eliminar
-	 *
-	 * @description	Elimina un cliente del listado de clientes
-	 *
-	 * @param	{number}
-	 *
-	 * @return  {boolean}
-	**/
+	/*
 	eliminar(id) {
 		// Cargo archivo
 		try {
@@ -137,6 +130,40 @@ class Cliente {
 			return true;
 		}
 	}
+	*/
+
+	/**
+	 * @name	eliminar
+	 *
+	 * @description	Cambia de estado Alta a Baja a un cliente
+	 *
+	 * @param	{id}
+	 *
+	 * @return  {boolean}
+	**/
+	eliminar(id) {
+		// Cargo archivo
+		try {
+			listadoClientes = require('../data/clientes.json');
+		} catch(error) {
+			listadoClientes = [];
+		}
+
+		let index = listadoClientes.findIndex(cliente => {
+			return cliente.id == id;
+		});
+
+		if(index >= 0) {
+			listadoClientes[index].estado = 'Baja';
+
+			// Grabo archivo
+			let data = JSON.stringify(listadoClientes);
+			fs.writeFileSync('./server/data/clientes.json', data);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * @name	getClientes
@@ -149,9 +176,17 @@ class Cliente {
 	**/
 	getClientes() {
 		// Cargo archivo
-		let data = require('../data/clientes.json');
+		try {
+			data = require('../data/clientes.json');
+		} catch(error) {
+			data = [];
+		}
 
-		return data;
+		let nuevoListado = data.filter(cliente => {
+			return cliente.estado == 'Alta';
+		});
+
+		return nuevoListado;
 	}
 
 	/**

@@ -58,7 +58,8 @@ class Producto {
 			id: listadoProductos.length, // Acá tengo un problema cuando elimino!!
 			tipo: tipo,
 			nombre: nombre,
-			precio: precio
+			precio: precio,
+			estado: 'Alta'
 		};
 
 		listadoProductos.push(nuevoProducto);
@@ -105,15 +106,7 @@ class Producto {
 		}
 	}
 
-	/**
-	 * @name	eliminar
-	 *
-	 * @description	Elimina un producto del listado de productos
-	 *
-	 * @param	{number}
-	 *
-	 * @return  {boolean}
-	**/
+	/*
 	eliminar(id) {
 		// Cargo archivo
 		try {
@@ -137,6 +130,40 @@ class Producto {
 			return true;
 		}
 	}
+	*/
+
+	/**
+	 * @name	eliminar
+	 *
+	 * @description	Cambia de Alta a Baja el estado de un producto
+	 *
+	 * @param	{number}
+	 *
+	 * @return  {boolean}
+	**/
+	eliminar(id) {
+		// Cargo archivo
+		try {
+			listadoProductos = require('../data/productos.json');
+		} catch(error) {
+			listadoProductos = [];
+		}
+
+		let index = listadoProductos.findIndex(producto => {
+			return producto.id == id;
+		});
+
+		if(index >= 0) {
+			listadoProductos[index].estado = 'Baja';
+
+			// Grabo archivo
+			let data = JSON.stringify(listadoProductos);
+			fs.writeFileSync('./server/data/productos.json', data);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * @name	getProductos
@@ -149,9 +176,17 @@ class Producto {
 	**/
 	getProductos() {
 		// Cargo archivo
-		let data = require('../data/productos.json');
+		try {
+			listadoProductos = require('../data/productos.json');
+		} catch(error) {
+			listadoProductos = [];
+		}
 
-		return data;
+		let nuevoListado = listadoProductos.filter(producto => {
+			return producto.estado == 'Alta';
+		});
+
+		return nuevoListado;
 	}
 
 	/**
@@ -172,7 +207,7 @@ class Producto {
 		}
 
 		let nuevoListado = listadoProductos.filter(producto => {
-			return producto.tipo == tipo;
+			return producto.tipo == tipo && producto.estado == 'Alta'
 		});
 
 		return nuevoListado;
