@@ -51,3 +51,7 @@ img:hover {
 	margin-left: 102px;
 	width: 350px;
 }
+
+hr {
+	background-color: white;
+}
