@@ -11,8 +11,10 @@
 
 // Requires
 const fs = require('fs');
+const axios = require('axios');
 
 let listadoClientes = []; // Array para almacenar los clientes
+let url = 'https://crud-siracusa.firebaseio.com/clientes.json';
 
 class Cliente {
 
@@ -61,6 +63,15 @@ class Cliente {
 			telefono: telefono,
 			estado: 'Alta'
 		};
+
+		axios.post(url, nuevoCliente)
+		     .then((res) => {
+  			 	console.log(`statusCode: ${res.statusCode}`);
+  				console.log(res);
+			 })
+			 .catch((error) => {
+  			    console.error(error);
+			 });
 
 		listadoClientes.push(nuevoCliente);
 
