@@ -10,31 +10,15 @@
 **/
 
 // Requires
-const fs = require('fs');
+const axios = require('axios');
 
+let url = 'https://crud-siracusa.firebaseio.com';
 let ventas = []; // Array para almacenar las ventas
 
 class Venta {
 
 	constructor() {
 		
-	}
-
-	/**
-	 * @name	grabarArchivo
-	 *
-	 * @description	Escribe en el archivo de datos
-	 *
-	 * @param	{}
-	 *
-	 * @return  {}
-	**/
-	grabarArchivo() {
-		let data = JSON.stringify(ventas);
-
-		fs.writeFile('../data/ventas.json', data, (err) => {
-			if(err) throw new Error('No se pudo grabar', err);
-		});
 	}
 
 	/**
@@ -47,13 +31,6 @@ class Venta {
 	 * @return  {object}
 	**/
 	agregarVenta(cliente, direccion, tipo, nombre, precio, cantidad) {
-		// Cargo archivo
-		try {
-			ventas = require('../data/ventas.json');
-		} catch(error) {
-			ventas = [];
-		}
-
 		// Formateo Date para tener fecha y hora
 		var hoy = new Date();
 		var fecha = hoy.getDate() + '-' + (hoy.getMonth()+1) + '-' + hoy.getFullYear();
@@ -61,7 +38,7 @@ class Venta {
 		var fechaYHora = fecha + ' ' + hora;
 
 		let nuevaVenta = {
-			id: ventas.length,
+			id: '',
 			cliente: cliente,
 			direccion: direccion,
 			tipo: tipo,
@@ -72,11 +49,14 @@ class Venta {
 			estado: 'Pendiente'
 		};
 		
-		ventas.push(nuevaVenta);
-
-		// Grabo archivo
-		let data = JSON.stringify(ventas);
-		fs.writeFileSync('./server/data/ventas.json', data);
+		axios.post(`${url}/ventas.json`, nuevaVenta)
+		     .then((res) => {
+  			 	console.log(`statusCode: ${res.statusCode}`);
+  				console.log(res);
+			 })
+			 .catch((error) => {
+  			    console.error(error);
+			 });
 
 		return nuevaVenta;
 	}
@@ -117,17 +97,22 @@ class Venta {
 	/**
 	 * @name	getVentas
 	 *
-	 * @description	Devuelve todas las ventas del listado
+	 * @description	Devuelve todas las ventas de la BD
 	 *
 	 * @param	{}
 	 *
 	 * @return  {object}
 	**/
-	getVentas() {
-		// Cargo archivo
-		let data = require('../data/ventas.json');
+	async getVentas() {
+		ventas = []; // Array para almacenar las ventas
+		const resp = await axios.get(`${url}/ventas.json`);
 
-		return data;
+		Object.keys(resp.data).forEach(key => {
+			ventas.push(resp.data[key]);
+			ventas.id = key;
+		});
+
+		return ventas;
 	}
 
 	/**
@@ -140,13 +125,6 @@ class Venta {
 	 * @return  {object}
 	**/
 	getPorMes(mes) {
-		// Cargo archivo
-		try {
-			ventas = require('../data/ventas.json');
-		} catch(error) {
-			ventas = [];
-		}
-
 		let nuevoListado = ventas.filter(venta => {
 			var v = venta.fecha.split('-');
 			return v[1] == mes;
@@ -165,13 +143,6 @@ class Venta {
 	 * @return  {object}
 	**/
 	getPorMesDia(mes, dia) {
-		// Cargo archivo
-		try {
-			ventas = require('../data/ventas.json');
-		} catch(error) {
-			ventas = [];
-		}
-
 		let nuevoListado = ventas.filter(venta => {
 			var v = venta.fecha.split('-');
 			return v[1] == mes && v[0] == dia;
@@ -190,13 +161,6 @@ class Venta {
 	 * @return  {object}
 	**/
 	getEnCola() {
-		// Cargo archivo
-		try {
-			ventas = require('../data/ventas.json');
-		} catch(error) {
-			ventas = [];
-		}
-
 		let nuevoListado = ventas.filter(venta => {
 			return venta.estado == 'Pendiente';
 		});

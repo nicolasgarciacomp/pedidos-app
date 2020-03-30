@@ -22,18 +22,18 @@ const cliente = new Cliente();
 // Connect
 io.on('connection', (client) => {
     
-    client.on('getProductos', (callback) => {
-    	let getProductos = producto.getProductos();
+    client.on('getProductos', async (callback) => {
+    	let getProductos = await producto.getProductos();
     	callback(getProductos);
     });
 
-    client.on('getVentas', (callback) => {
-        let getVentas = venta.getVentas();
+    client.on('getVentas', async (callback) => {
+        let getVentas = await venta.getVentas();
         callback(getVentas);
     });
 
-    client.on('getClientes', (callback) => {
-        let getClientes = cliente.getClientes();
+    client.on('getClientes', async (callback) => {
+        let getClientes = await cliente.getClientes();
         callback(getClientes);
     });
 
@@ -53,7 +53,7 @@ io.on('connection', (client) => {
     });
 
     client.on('agregarProducto', (data, callback) => {
-    	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio);
+    	let nuevoProducto = producto.agregarProducto(data.tipo, data.nombre, data.precio, data.media);
     	callback(nuevoProducto);
     });
 
@@ -62,18 +62,20 @@ io.on('connection', (client) => {
         callback(nuevoCliente);
     });
 
-    client.on('getProducto', (data, callback) => {
+    client.on('getProducto', async (data, callback) => {
+        let getProductos = await producto.getProductos();
     	let productoID = producto.getProducto(data.id);
     	callback(productoID);
     });
 
-    client.on('getCliente', (data, callback) => {
+    client.on('getCliente', async (data, callback) => {
+        let getClientes = await cliente.getClientes();
         let clienteID = cliente.getCliente(data.id);
         callback(clienteID);
     });
 
     client.on('actualizar', (data, callback) => {
-    	let actualiza = producto.actualizar(data.id, data.tipo, data.nombre, data.precio);
+    	let actualiza = producto.actualizar(data.id, data.tipo, data.nombre, data.precio, data.media);
     	callback(actualiza);
     });
 
@@ -97,7 +99,8 @@ io.on('connection', (client) => {
         callback(eliminaC);
     });
 
-    client.on('getPorTipo', (data, callback) => {
+    client.on('getPorTipo', async (data, callback) => {
+        let getProductos = await producto.getProductos();
         let tipo = producto.getPorTipo(data.tipo);
         callback(tipo);
     });

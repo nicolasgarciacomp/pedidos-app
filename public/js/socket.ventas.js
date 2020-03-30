@@ -13,13 +13,11 @@ var totalLomo = 0;
 var totalPizza = 0;
 
 $(document).ready(function() {
-	
 	// Listeners
 	socket.emit('getVentas', function(resp) {
 		for(var i = 0; i < resp.length; i++) {
 			var contenido = "";
 			contenido += '<tr>';
-			contenido += '<td>'+resp[i].id+'</td>';
 			contenido += '<td class="w50">'+resp[i].cliente+'</td>';
 			contenido += '<td class="w50">'+resp[i].direccion+'</td>';
 			contenido += '<td class="w50">'+resp[i].tipo+'</td>';
@@ -53,7 +51,6 @@ $(document).ready(function() {
 			for(var i = 0; i < resp.length; i++) {
 				var contenido = "";
 				contenido += '<tr>';
-				contenido += '<td>'+resp[i].id+'</td>';
 				contenido += '<td class="w50">'+resp[i].cliente+'</td>';
 				contenido += '<td class="w50">'+resp[i].direccion+'</td>';
 				contenido += '<td class="w50">'+resp[i].tipo+'</td>';
@@ -79,7 +76,6 @@ $(document).ready(function() {
 					totalPizza = totalPizza + (Number(resp[i].precio)*Number(resp[i].cantidad));
 				}
 			}
-			console.log(resp);
 			$('#text-cant-burger').val(cantBurger);
 			$('#text-cant-lomo').val(cantLomo);
 			$('#text-cant-pizza').val(cantPizza);
@@ -111,7 +107,6 @@ $(document).ready(function() {
 			for(var i = 0; i < resp.length; i++) {
 				var contenido = "";
 				contenido += '<tr>';
-				contenido += '<td>'+resp[i].id+'</td>';
 				contenido += '<td class="w50">'+resp[i].cliente+'</td>';
 				contenido += '<td class="w50">'+resp[i].direccion+'</td>';
 				contenido += '<td class="w50">'+resp[i].tipo+'</td>';
@@ -137,7 +132,6 @@ $(document).ready(function() {
 					totalPizza = totalPizza + (Number(resp[i].precio)*Number(resp[i].cantidad));
 				}
 			}
-			console.log(resp);
 			$('#text-cant-burger').val(cantBurger);
 			$('#text-cant-lomo').val(cantLomo);
 			$('#text-cant-pizza').val(cantPizza);

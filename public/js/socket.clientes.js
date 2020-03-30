@@ -25,14 +25,12 @@ function ordenarPorClave(array, key) {
 }
 
 $(document).ready(function() {
-	
 	// Listeners
 	socket.emit('getClientes', function(resp) {
 		respOrdenado = ordenarPorClave(resp, "nombre");
 		for(var i = 0; i < resp.length; i++) {
 			var contenido = "";
 			contenido += '<tr>';
-			contenido += '<td>'+respOrdenado[i].id+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].nombre+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].direccion+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].telefono+'</td>';
@@ -50,7 +48,7 @@ $(document).ready(function() {
 			direccion: nuevoDireccion.val(),
 			telefono: nuevoTelefono.val()
 		}, function(resp) {
-			console.log(resp);
+			//console.log(resp);
 		});
 		swal("Hecho!", "Registro insertado con éxito!", "success");
 	});

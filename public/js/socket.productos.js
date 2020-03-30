@@ -7,6 +7,7 @@ var buttonInsert = $('#btn-insert1');
 var nuevoTipo = $('#text-tipo');
 var nuevoNombre = $('#text-nombre');
 var nuevoPrecio = $('#text-precio');
+var nuevoMedia = $('#text-media');
 
 /**
  * @name	ordenarPorClave
@@ -25,17 +26,16 @@ function ordenarPorClave(array, key) {
 }
 
 $(document).ready(function() {
-	
 	// Listeners
 	socket.emit('getProductos', function(resp) {
 		respOrdenado = ordenarPorClave(resp, "tipo");
 		for(var i = 0; i < resp.length; i++) {
 			var contenido = "";
 			contenido += '<tr>';
-			contenido += '<td>'+respOrdenado[i].id+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].tipo+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].nombre+'</td>';
 			contenido += '<td class="w50">'+'$'+respOrdenado[i].precio+'</td>';
+			contenido += '<td class="w50">'+'$'+respOrdenado[i].media+'</td>';
 			contenido += '<td class="w50"><a href="modify.html?id='+respOrdenado[i].id+'" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>';
 			contenido += '<td class="w50"><a href="delete.html?id='+respOrdenado[i].id+'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>';
 			contenido += '</tr>';
@@ -48,9 +48,10 @@ $(document).ready(function() {
 		socket.emit('agregarProducto', {
 			tipo: nuevoTipo.val(),
 			nombre: nuevoNombre.val(),
-			precio: nuevoPrecio.val()
+			precio: nuevoPrecio.val(),
+			media: nuevoMedia.val()
 		}, function(resp) {
-			console.log(resp);
+			//console.log(resp);
 		});
 		swal("Hecho!", "Registro insertado con éxito!", "success");
 	});

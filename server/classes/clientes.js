@@ -10,11 +10,10 @@
 **/
 
 // Requires
-const fs = require('fs');
 const axios = require('axios');
 
-let listadoClientes = []; // Array para almacenar los clientes
-let url = 'https://crud-siracusa.firebaseio.com/clientes.json';
+let url = 'https://crud-siracusa.firebaseio.com';
+let listadoClientes = [];
 
 class Cliente {
 
@@ -23,48 +22,24 @@ class Cliente {
 	}
 
 	/**
-	 * @name	grabarArchivo
-	 *
-	 * @description	Escribe en el archivo de datos
-	 *
-	 * @param	{}
-	 *
-	 * @return  {}
-	**/
-	grabarArchivo() {
-		let data = JSON.stringify(listadoClientes);
-
-		fs.writeFile('../data/clientes.json', data, (err) => {
-			if(err) throw new Error('No se pudo grabar', err);
-		});
-	}
-
-	/**
 	 * @name	agregarCliente
 	 *
-	 * @description	Añade un cliente al array listadoClientes
+	 * @description	Añade un cliente a la BD
 	 *
 	 * @param	{number, string, string}
 	 *
 	 * @return  {object}
 	**/
 	agregarCliente(nombre, direccion, telefono) {
-		// Cargo archivo
-		try {
-			listadoClientes = require('../data/clientes.json');
-		} catch(error) {
-			listadoClientes = [];
-		}
-
 		let nuevoCliente = {
-			id: listadoClientes.length, // Acá tengo un problema cuando elimino!!
+			id: '0',
 			nombre: nombre,
 			direccion: direccion,
 			telefono: telefono,
 			estado: 'Alta'
 		};
 
-		axios.post(url, nuevoCliente)
+		axios.post(`${url}/clientes.json`, nuevoCliente)
 		     .then((res) => {
   			 	console.log(`statusCode: ${res.statusCode}`);
   				console.log(res);
@@ -72,12 +47,6 @@ class Cliente {
 			 .catch((error) => {
   			    console.error(error);
 			 });
-
-		listadoClientes.push(nuevoCliente);
-
-		// Grabo archivo
-		let data = JSON.stringify(listadoClientes);
-		fs.writeFileSync('./server/data/clientes.json', data);
 
 		return nuevoCliente;
 	}
@@ -117,32 +86,6 @@ class Cliente {
 		}
 	}
 
-	/*
-	eliminar(id) {
-		// Cargo archivo
-		try {
-			listadoClientes = require('../data/clientes.json');
-		} catch(error) {
-			listadoClientes = [];
-		}
-
-		let nuevoListado = listadoClientes.filter(cliente => {
-			return cliente.id != id;
-		});
-
-		if(listadoClientes.length == listadoClientes.length) {
-			return false;
-		} else {
-			listadoClientes = nuevoListado;
-			
-			// Grabo archivo
-			let data = JSON.stringify(listadoClientes);
-			fs.writeFileSync('./server/data/clientes.json', data);
-			return true;
-		}
-	}
-	*/
-
 	/**
 	 * @name	eliminar
 	 *
@@ -179,25 +122,29 @@ class Cliente {
 	/**
 	 * @name	getClientes
 	 *
-	 * @description	Devuelve todos los clientes del listado
+	 * @description	Devuelve todos los clientes de la BD
 	 *
 	 * @param	{}
 	 *
 	 * @return  {object}
 	**/
-	getClientes() {
-		// Cargo archivo
-		try {
-			listadoClientes = require('../data/clientes.json');
-		} catch(error) {
-			listadoClientes = [];
-		}
+	async getClientes() {
+		listadoClientes = []; // Array para almacenar los clientes
+		const resp = await axios.get(`${url}/clientes.json`);
 
-		let nuevoListado = listadoClientes.filter(cliente => {
-			return cliente.estado == 'Alta';
+		Object.keys(resp.data).forEach(key => {
+			listadoClientes.push(resp.data[key]);
+			let nombre = resp.data[key]['nombre'];
+			let index = listadoClientes.findIndex(cliente => {
+				return cliente.nombre == nombre;
+			});
+
+			if(index >= 0) {
+				listadoClientes[index].id = key;
+			}
 		});
 
-		return nuevoListado;
+		return listadoClientes;
 	}
 
 	/**
@@ -210,13 +157,12 @@ class Cliente {
 	 * @return  {object}
 	**/
 	getCliente(id) {
-		// Cargo archivo
-		let data = require('../data/clientes.json');
+		let index = listadoClientes.findIndex(cliente => {
+			return cliente.id == id;
+		});
 
-		for(var i = 0; i <= data.length-1; i++) {
-			if(i == id) {
-				return data[i];
-			}
+		if(index >= 0) {
+			return listadoClientes[index];
 		}
 	}
 }

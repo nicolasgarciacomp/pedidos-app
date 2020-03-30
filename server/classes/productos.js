@@ -10,9 +10,10 @@
 **/
 
 // Requires
-const fs = require('fs');
+const axios = require('axios');
 
-let listadoProductos = []; // Array para almacenar los productos
+let url = 'https://crud-siracusa.firebaseio.com';
+let listadoProductos = [];
 
 class Producto {
 
@@ -21,54 +22,34 @@ class Producto {
 	}
 
 	/**
-	 * @name	grabarArchivo
-	 *
-	 * @description	Escribe en el archivo de datos
-	 *
-	 * @param	{}
-	 *
-	 * @return  {}
-	**/
-	grabarArchivo() {
-		let data = JSON.stringify(listadoProductos);
-
-		fs.writeFile('../data/productos.json', data, (err) => {
-			if(err) throw new Error('No se pudo grabar', err);
-		});
-	}
-
-	/**
 	 * @name	agregarProducto
 	 *
-	 * @description	Añade un producto al array listadoProductos
+	 * @description	Añade un producto a la BD
 	 *
-	 * @param	{string, string, number}
+	 * @param	{string, string, number, number}
 	 *
 	 * @return  {object}
 	**/
-	agregarProducto(tipo, nombre, precio) {
-		// Cargo archivo
-		try {
-			listadoProductos = require('../data/productos.json');
-		} catch(error) {
-			listadoProductos = [];
-		}
-
+	agregarProducto(tipo, nombre, precio, media) {
 		let nuevoProducto = {
-			id: listadoProductos.length, // Acá tengo un problema cuando elimino!!
+			id: '',
 			tipo: tipo,
 			nombre: nombre,
 			precio: precio,
+			media: media,
 			estado: 'Alta'
 		};
 
-		listadoProductos.push(nuevoProducto);
+		axios.post(`${url}/productos.json`, nuevoProducto)
+		     .then((res) => {
+  			 	console.log(`statusCode: ${res.statusCode}`);
+  				console.log(res);
+			 })
+			 .catch((error) => {
+  			    console.error(error);
+			 });
 
-		// Grabo archivo
-		let data = JSON.stringify(listadoProductos);
-		fs.writeFileSync('./server/data/productos.json', data);
-
-		return nuevoProducto;
+		return nuevoProducto;	
 	}
 
 	/**
@@ -106,32 +87,6 @@ class Producto {
 		}
 	}
 
-	/*
-	eliminar(id) {
-		// Cargo archivo
-		try {
-			listadoProductos = require('../data/productos.json');
-		} catch(error) {
-			listadoProductos = [];
-		}
-
-		let nuevoListado = listadoProductos.filter(producto => {
-			return producto.id != id;
-		});
-
-		if(listadoProductos.length == nuevoListado.length) {
-			return false;
-		} else {
-			listadoProductos = nuevoListado;
-			
-			// Grabo archivo
-			let data = JSON.stringify(listadoProductos);
-			fs.writeFileSync('./server/data/productos.json', data);
-			return true;
-		}
-	}
-	*/
-
 	/**
 	 * @name	eliminar
 	 *
@@ -168,25 +123,22 @@ class Producto {
 	/**
 	 * @name	getProductos
 	 *
-	 * @description	Devuelve todos los productos del listado
+	 * @description	Devuelve todos los productos de la BD
 	 *
 	 * @param	{}
 	 *
 	 * @return  {object}
 	**/
-	getProductos() {
-		// Cargo archivo
-		try {
-			listadoProductos = require('../data/productos.json');
-		} catch(error) {
-			listadoProductos = [];
-		}
-
-		let nuevoListado = listadoProductos.filter(producto => {
-			return producto.estado == 'Alta';
+	async getProductos() {
+		listadoProductos = []; // Array para almacenar los productos
+		const resp = await axios.get(`${url}/productos.json`);
+		
+		Object.keys(resp.data).forEach(key => {
+			listadoProductos.push(resp.data[key]);
+			listadoProductos.id = key;
 		});
 
-		return nuevoListado;
+		return listadoProductos;
 	}
 
 	/**
@@ -199,13 +151,6 @@ class Producto {
 	 * @return  {object}
 	**/
 	getPorTipo(tipo) {
-		// Cargo archivo
-		try {
-			listadoProductos = require('../data/productos.json');
-		} catch(error) {
-			listadoProductos = [];
-		}
-
 		let nuevoListado = listadoProductos.filter(producto => {
 			return producto.tipo == tipo && producto.estado == 'Alta'
 		});
@@ -223,13 +168,12 @@ class Producto {
 	 * @return  {object}
 	**/
 	getProducto(id) {
-		// Cargo archivo
-		let data = require('../data/productos.json');
+		let index = listadoProductos.findIndex(producto => {
+			return producto.id == id;
+		});
 
-		for(var i = 0; i <= data.length-1; i++) {
-			if(i == id) {
-				return data[i];
-			}
+		if(index >= 0) {
+			return listadoProductos[index];
 		}
 	}
 }

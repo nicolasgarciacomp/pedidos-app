@@ -21,14 +21,12 @@ function ordenarPorClave(array, key) {
 }
 
 $(document).ready(function() {
-	
 	// Listeners
 	socket.emit('getEnCola', function(resp) {
 		respOrdenado = ordenarPorClave(resp, "id");
 		for(var i = 0; i < resp.length; i++) {
 			var contenido = "";
-			contenido += '<tr id="'+respOrdenado[i].id+'">';
-			contenido += '<td>'+respOrdenado[i].id+'</td>';
+			contenido += '<tr>';
 			contenido += '<td class="w50">'+respOrdenado[i].cliente+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].direccion+'</td>';
 			contenido += '<td class="w50">'+respOrdenado[i].tipo+'</td>';
@@ -48,7 +46,7 @@ function a(id) {
 	socket.emit('pasarListo', {
 		id: id
 	}, function(resp) {
-		console.log(resp);
+		//console.log(resp);
 	});
 	$('#' + id).remove();
 }

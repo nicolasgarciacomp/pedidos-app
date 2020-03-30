@@ -11,10 +11,10 @@ var selectProducto = $('#sel-producto');
 var cantidad = $('#text-cantidad');
 var detalle = $('#tab-detalle');
 var total = $('#text-total');
+var entera = $('#sel-entera');
 var totalDeVenta = 0;
 
 $(document).ready(function() {
-
 	// Listeners
 	selectTipo.on('change', function(e) {
 		e.preventDefault();
@@ -27,7 +27,7 @@ $(document).ready(function() {
 			selectProducto.append(contenido);
 			for(var i = 0; i < resp.length; i++) {
 				var contenido = "";
-				contenido += '<option value="'+resp[i].nombre+'">'+resp[i].nombre+' - $'+resp[i].precio+'</option>';
+				contenido += '<option value="'+resp[i].nombre+'">'+resp[i].nombre+' - $'+resp[i].precio+' - $'+resp[i].media+'</option>';
 				selectProducto.append(contenido);
 			}
 		});
@@ -35,20 +35,27 @@ $(document).ready(function() {
 
 	buttonAgrega.on('click', function(e) {
 		e.preventDefault();
-		var nuevoPrecio = $("#sel-producto option:selected").text().split('$');
-		totalDeVenta = totalDeVenta + (Number(nuevoPrecio[1])*Number(cantidad.val()));
+		if(entera.val() === 'Media') {
+			var nuevoPrecio = $("#sel-producto option:selected").text().split('$');
+			nuevoPrecio = nuevoPrecio[2];
+		} else {
+			var nuevoPrecio = $("#sel-producto option:selected").text().split('$');
+			nuevoPrecio = nuevoPrecio[1].split('-');
+			nuevoPrecio = nuevoPrecio[0].trim();
+		}
+
+		totalDeVenta = totalDeVenta + (Number(nuevoPrecio)*Number(cantidad.val()));
 		total.val('$'+totalDeVenta);
 		socket.emit('agregarVenta', {
 			cliente: nombreCliente.val(),
 			direccion: direccion.val(),
 			tipo: selectTipo.val(),
 			nombre: selectProducto.val(),
-			precio: nuevoPrecio[1],
+			precio: nuevoPrecio,
 			cantidad: cantidad.val()
 		}, function(resp) {
 			var contenido = "";
 			contenido += '<tr>';
-			contenido += '<td>'+resp.id+'</td>';
 			contenido += '<td class="w50">'+resp.cliente+'</td>';
 			contenido += '<td class="w50">'+resp.direccion+'</td>';
 			contenido += '<td class="w50">'+resp.tipo+'</td>';
@@ -89,8 +96,6 @@ $(document).ready(function() {
         		item = resp[i].nombre;
 
     			if(item.indexOf(buscando) > -1) {
-    				console.log(resp[i].nombre);
-    				console.log(resp[i].id);
         			$("#suggesstion-box").show();
 					$("#suggesstion-box").append('<a href="#" data-id="'+resp[i].id+'" id="'+resp[i].id+'" onClick="elegirNombre(id);">'+resp[i].nombre+'</a><br>');
       			} else {

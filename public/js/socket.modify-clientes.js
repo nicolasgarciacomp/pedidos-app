@@ -12,12 +12,10 @@ var nuevoDireccion = $('#text-direccion');
 var nuevoTelefono = $('#text-telefono');
 
 $(document).ready(function() {
-
 	// Listeners
 	socket.emit('getCliente', {
 		id: id
 	}, function(resp) {
-		console.log(resp);
 		nuevoNombre.val(resp.nombre);
 		nuevoDireccion.val(resp.direccion);
 		nuevoTelefono.val(resp.telefono);
@@ -31,7 +29,7 @@ $(document).ready(function() {
 			direccion: nuevoDireccion.val(),
 			telefono: nuevoTelefono.val()
 		}, function(resp) {
-			console.log(resp);
+			//console.log(resp);
 		});
 		swal("Hecho!", "Registro modificado con éxito!", "success");
 	});

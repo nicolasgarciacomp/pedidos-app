@@ -50,14 +50,14 @@
     <div id="suggesstion-box" class="alert alert-dark" role="alert"></div>
     <br>
     <!-- Info Productos de Venta -->
-    <div class="input-group mb-3" id="div-cont-buttons">
+    <div class="input-group mb-4" id="div-cont-buttons">
         <div class="input-group-prepend" id="div-buttons">
             <span class="input-group-text" id="inputGroup-sizing-default">Tipo</span>
         </div>
         <select class="custom-select" id="sel-tipo" style="background-color: white">
             <option selected>Seleccionar...</option>
-            <option value="Burger">Burger</option>
-            <option value="Lomo">Lomo</option>
+            <option value="Hamburguesa">Hamburguesa</option>
+            <option value="Lomo Pizza">Lomo Pizza</option>
             <option value="Pizza">Pizza</option>
         </select>
         <div class="input-group-prepend" id="div-buttons">
@@ -65,6 +65,13 @@
         </div>
         <select class="custom-select" id="sel-producto" style="background-color: white">
             <option selected>Seleccionar...</option>
+        </select>
+       <div class="input-group-prepend" id="div-buttons">
+            <span class="input-group-text" id="inputGroup-sizing-default">Tamaño</span>
+        </div>
+        <select class="custom-select" id="sel-entera" style="background-color: white">
+            <option selected>Entera</option>
+            <option>Media</option>
         </select>
         <div class="input-group-prepend" id="div-buttons">
             <span class="input-group-text" id="inputGroup-sizing-default">Cantidad</span>
@@ -86,7 +93,6 @@
     <table class="table table-striped text-center" align="center" id="tbl-pedido" style="background-color: white;">
         <thead class="thead-light">
             <tr>
-                <th class="w50">ID</td>
                 <th class="w50">Cliente</td>
                 <th class="w50">Direccion</td>
                 <th class="w50">Tipo</td>
