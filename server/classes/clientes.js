@@ -35,8 +35,7 @@ class Cliente {
 			id: '0',
 			nombre: nombre,
 			direccion: direccion,
-			telefono: telefono,
-			estado: 'Alta'
+			telefono: telefono
 		};
 
 		axios.post(`${url}/clientes.json`, nuevoCliente)
@@ -58,65 +57,37 @@ class Cliente {
 	 *
 	 * @param	{number, string, string, string}
 	 *
-	 * @return  {boolean}
+	 * @return  {object}
 	**/
-	actualizar(id, nombre, direccion, telefono) {
-		// Cargo archivo
-		try {
-			listadoClientes = require('../data/clientes.json');
-		} catch(error) {
-			listadoClientes = [];
-		}
+	async actualizar(id, nombre, direccion, telefono) {
+		const res = await axios.put(`${url}/clientes/${id}.json`, {
+			id: id,
+            nombre: nombre,
+            direccion: direccion,
+            telefono: telefono
+        });
 
-		let index = listadoClientes.findIndex(cliente => {
-			return cliente.id == id;
-		});
-
-		if(index >= 0) {
-			listadoClientes[index].nombre = nombre;
-			listadoClientes[index].direccion = direccion;
-			listadoClientes[index].telefono = telefono;
-
-			// Grabo archivo
-			let data = JSON.stringify(listadoClientes);
-			fs.writeFileSync('./server/data/clientes.json', data);
-			return true;
-		} else {
-			return false;
-		}
+        return res;
 	}
 
 	/**
 	 * @name	eliminar
 	 *
-	 * @description	Cambia de estado Alta a Baja a un cliente
+	 * @description	Elimina el elemento id de la BD
 	 *
 	 * @param	{id}
 	 *
-	 * @return  {boolean}
+	 * @return  {}
 	**/
 	eliminar(id) {
-		// Cargo archivo
-		try {
-			listadoClientes = require('../data/clientes.json');
-		} catch(error) {
-			listadoClientes = [];
-		}
-
-		let index = listadoClientes.findIndex(cliente => {
-			return cliente.id == id;
-		});
-
-		if(index >= 0) {
-			listadoClientes[index].estado = 'Baja';
-
-			// Grabo archivo
-			let data = JSON.stringify(listadoClientes);
-			fs.writeFileSync('./server/data/clientes.json', data);
-			return true;
-		} else {
-			return false;
-		}
+		axios.delete(`${url}/clientes/${id}.json`)
+	     .then((res) => {
+			 	console.log(`statusCode: ${res.statusCode}`);
+				console.log(res);
+		 })
+		 .catch((error) => {
+			    console.error(error);
+		 });
 	}
 
 	/**

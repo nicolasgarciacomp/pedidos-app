@@ -37,17 +37,20 @@ io.on('connection', (client) => {
         callback(getClientes);
     });
 
-    client.on('getEnCola', (callback) => {
+    client.on('getEnCola', async (callback) => {
+        let getVentas = await venta.getVentas();
         let enCola = venta.getEnCola();
         callback(enCola);
     });
 
-    client.on('getPorMes', (data, callback) => {
+    client.on('getPorMes', async (data, callback) => {
+        let getVentas = await venta.getVentas();
         let getVentasPorMes = venta.getPorMes(data.mes);
         callback(getVentasPorMes);
     });
 
-    client.on('getPorMesDia', (data, callback) => {
+    client.on('getPorMesDia', async (data, callback) => {
+        let getVentas = await venta.getVentas();
         let getVentasPorMesDia = venta.getPorMesDia(data.mes, data.dia);
         callback(getVentasPorMesDia);
     });
@@ -74,18 +77,18 @@ io.on('connection', (client) => {
         callback(clienteID);
     });
 
-    client.on('actualizar', (data, callback) => {
-    	let actualiza = producto.actualizar(data.id, data.tipo, data.nombre, data.precio, data.media);
+    client.on('actualizar', async (data, callback) => {
+    	let actualiza = await producto.actualizar(data.id, data.tipo, data.nombre, data.precio, data.media);
     	callback(actualiza);
     });
 
-    client.on('actualizarCliente', (data, callback) => {
-        let actualizaC = cliente.actualizar(data.id, data.nombre, data.direccion, data.telefono);
+    client.on('actualizarCliente', async (data, callback) => {
+        let actualizaC = await cliente.actualizar(data.id, data.nombre, data.direccion, data.telefono);
         callback(actualizaC);
     });
 
-    client.on('pasarListo', (data, callback) => {
-        let listo = venta.pasarListo(data.id);
+    client.on('pasarListo', async (data, callback) => {
+        let listo = await venta.pasarListo(data.id);
         callback(listo);
     });
 

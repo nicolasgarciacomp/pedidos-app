@@ -36,8 +36,7 @@ class Producto {
 			tipo: tipo,
 			nombre: nombre,
 			precio: precio,
-			media: media,
-			estado: 'Alta'
+			media: media
 		};
 
 		axios.post(`${url}/productos.json`, nuevoProducto)
@@ -57,67 +56,40 @@ class Producto {
 	 *
 	 * @description	Actualiza datos de un producto
 	 *
-	 * @param	{number, string, string, number}
+	 * @param	{number, string, string, number, number}
 	 *
-	 * @return  {boolean}
+	 * @return  {object}
 	**/
-	actualizar(id, tipo, nombre, precio) {
-		// Cargo archivo
-		try {
-			listadoProductos = require('../data/productos.json');
-		} catch(error) {
-			listadoProductos = [];
-		}
+	async actualizar(id, tipo, nombre, precio, media) {
+		const res = await axios.put(`${url}/productos/${id}.json`, {
+			id: id,
+            tipo: tipo,
+            nombre: nombre,
+            precio: precio,
+            media: media
+        });
 
-		let index = listadoProductos.findIndex(producto => {
-			return producto.id == id;
-		});
-
-		if(index >= 0) {
-			listadoProductos[index].tipo = tipo;
-			listadoProductos[index].nombre = nombre;
-			listadoProductos[index].precio = precio;
-
-			// Grabo archivo
-			let data = JSON.stringify(listadoProductos);
-			fs.writeFileSync('./server/data/productos.json', data);
-			return true;
-		} else {
-			return false;
-		}
+        return res;
 	}
 
 	/**
 	 * @name	eliminar
 	 *
-	 * @description	Cambia de Alta a Baja el estado de un producto
+	 * @description	Elimina el elemento id de la BD
 	 *
 	 * @param	{number}
 	 *
-	 * @return  {boolean}
+	 * @return  {}
 	**/
 	eliminar(id) {
-		// Cargo archivo
-		try {
-			listadoProductos = require('../data/productos.json');
-		} catch(error) {
-			listadoProductos = [];
-		}
-
-		let index = listadoProductos.findIndex(producto => {
-			return producto.id == id;
-		});
-
-		if(index >= 0) {
-			listadoProductos[index].estado = 'Baja';
-
-			// Grabo archivo
-			let data = JSON.stringify(listadoProductos);
-			fs.writeFileSync('./server/data/productos.json', data);
-			return true;
-		} else {
-			return false;
-		}
+		axios.delete(`${url}/productos/${id}.json`)
+	     .then((res) => {
+			 	console.log(`statusCode: ${res.statusCode}`);
+				console.log(res);
+		 })
+		 .catch((error) => {
+			    console.error(error);
+		 });
 	}
 
 	/**
@@ -135,7 +107,15 @@ class Producto {
 		
 		Object.keys(resp.data).forEach(key => {
 			listadoProductos.push(resp.data[key]);
-			listadoProductos.id = key;
+			let tipo = resp.data[key]['tipo'];
+			let nombre = resp.data[key]['nombre'];
+			let index = listadoProductos.findIndex(producto => {
+				return producto.tipo == tipo && producto.nombre == nombre;
+			});
+
+			if(index >= 0) {
+				listadoProductos[index].id = key;
+			}
 		});
 
 		return listadoProductos;
@@ -152,7 +132,7 @@ class Producto {
 	**/
 	getPorTipo(tipo) {
 		let nuevoListado = listadoProductos.filter(producto => {
-			return producto.tipo == tipo && producto.estado == 'Alta'
+			return producto.tipo == tipo
 		});
 
 		return nuevoListado;

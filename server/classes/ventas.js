@@ -68,30 +68,14 @@ class Venta {
 	 *
 	 * @param	{number}
 	 *
-	 * @return  {boolean}
+	 * @return  {object}
 	**/
-	pasarListo(id) {
-		// Cargo archivo
-		try {
-			ventas = require('../data/ventas.json');
-		} catch(error) {
-			ventas = [];
-		}
+	async pasarListo(id) {
+		const res = await axios.put(`${url}/ventas/${id}.json`, {
+            estado: 'Listo'
+        });
 
-		let index = ventas.findIndex(venta => {
-			return venta.id == id;
-		});
-
-		if(index >= 0) {
-			ventas[index].estado = 'Listo';
-
-			// Grabo archivo
-			let data = JSON.stringify(ventas);
-			fs.writeFileSync('./server/data/ventas.json', data);
-			return true;
-		} else {
-			return false;
-		}
+        return res;
 	}
 
 	/**
